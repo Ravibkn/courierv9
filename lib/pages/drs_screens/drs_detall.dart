@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: sort_child_properties_last, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_init_to_null, non_constant_identifier_names, avoid_print, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 
@@ -50,7 +50,7 @@ class _DrsDetallState extends State<DrsDetall> {
     try {
       var booking_id = arguments['shipment_id'];
       var res = await http.post(
-          Uri.parse(baseUrl + 'rest_api_native/RestController.php'),
+          Uri.parse('${baseUrl}rest_api_native/RestController.php'),
           body: {
             "view": "booking_detail",
             "booking_id": booking_id,

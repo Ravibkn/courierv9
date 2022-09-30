@@ -24,5 +24,5 @@ class MyRouts {
   static String pickupdetallHistoryrout = "/pickupdetallhistory";
   static String splashScreenrout = "/splashscreen";
   static String biomatricrout = "/biomatric";
-
+  static String pickupDetailRout = "/pickup_awb_list";
 }

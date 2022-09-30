@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, prefer_is_empty, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 
@@ -18,7 +18,7 @@ class DrsList extends StatefulWidget {
 
 class _DrsListState extends State<DrsList> {
   List users = [];
-   var isLoading = true;
+  var isLoading = true;
   @override
   void initState() {
     super.initState();
@@ -28,22 +28,21 @@ class _DrsListState extends State<DrsList> {
   Future<void> getAppData() async {
     var m_id = _myBox.get('m_id');
     var res = await http.post(
-        Uri.parse(baseUrl + 'rest_api_native/RestController.php'),
+        Uri.parse('${baseUrl}rest_api_native/RestController.php'),
         body: {"view": "drs_list", "user_id": m_id, "page": "1"});
-       setState(() {
-       isLoading = false;
-      });
+    setState(() {
+      isLoading = false;
+    });
     if (res.statusCode == 200) {
       var items = jsonDecode(res.body)['output'];
       // print(items);
-       if(items[0]['error']=='No Record found!'){
-         users = [];
-       }else{
+      if (items[0]['error'] == 'No Record found!') {
+        users = [];
+      } else {
         setState(() {
-        users = items;
-      });
-       }
-      
+          users = items;
+        });
+      }
     } else {
       users = [];
     }
@@ -54,48 +53,49 @@ class _DrsListState extends State<DrsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        title: const Center(
-            child: Padding(
-          padding: EdgeInsets.only(right: 40.0),
-          child: Text(
-            "Drs List",
-            style: TextStyle(
-              shadows: <Shadow>[
-                Shadow(
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 3.0,
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-                Shadow(
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 8.0,
-                  color: Color.fromARGB(124, 94, 94, 107),
-                ),
-              ],
-              color: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.cyan,
+          title: const Center(
+              child: Padding(
+            padding: EdgeInsets.only(right: 40.0),
+            child: Text(
+              "Drs List",
+              style: TextStyle(
+                shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(2.0, 2.0),
+                    blurRadius: 3.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(2.0, 2.0),
+                    blurRadius: 8.0,
+                    color: Color.fromARGB(124, 94, 94, 107),
+                  ),
+                ],
+                color: Colors.white,
+              ),
             ),
-          ),
-        )),
-      ),
-      body: isLoading == false ? getList() : Center(
-                child: Lottie.asset("images/delivery-loader.json",width:150,height:150),
-              )
-    
-    );
+          )),
+        ),
+        body: isLoading == false
+            ? getList()
+            : Center(
+                child: Lottie.asset("images/delavery.json",
+                    width: 150, height: 150),
+              ));
   }
 
   Widget getList() {
-    if(users.length > 0){
-    return ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          return getCard(users[index]);
-        });
-    }else{
-        return Center(child: const Text('No items'));
-    }   
+    if (users.length > 0) {
+      return ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (context, index) {
+            return getCard(users[index]);
+          });
+    } else {
+      return Center(child: const Text('No items'));
+    }
   }
 
   Widget getCard(item) {

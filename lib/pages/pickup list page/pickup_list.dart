@@ -1,11 +1,14 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names, prefer_is_empty, unnecessary_brace_in_string_interps
 
 import 'dart:convert';
 
+import 'package:courierv9/pages/global.dart';
 import 'package:courierv9/pages/routs.dart';
 import 'package:courierv9/pages/style_constent.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 
 class PickupList extends StatefulWidget {
   const PickupList({Key? key}) : super(key: key);
@@ -15,6 +18,7 @@ class PickupList extends StatefulWidget {
 }
 
 class _PickupListState extends State<PickupList> {
+  final _myBox = Hive.box('AppData');
   List users = [];
 
   @override
@@ -24,17 +28,26 @@ class _PickupListState extends State<PickupList> {
   }
 
   Future<void> getAppData() async {
-    var res = await http.post(
-        Uri.parse(
-            'http://192.168.29.7/manishairexpress_cv9_web/rest_api_native/RestController.php'),
-        body: {"view": "pickup_list", "user_id": "1", "page": "1"});
-    if (res.statusCode == 200) {
-      var items = json.decode(res.body)['output'];
-      setState(() {
-        users = items;
-      });
-    } else {
-      users = [];
+    try {
+      var user_id = _myBox.get('m_id');
+      var res = await http.post(
+          Uri.parse('${baseUrl}rest_api_native/RestController.php'),
+          body: {"view": "pickup_list", "user_id": user_id, "page": "1"});
+      if (res.statusCode == 200) {
+        var items = json.decode(res.body)['output'];
+        if (items[0]['error'] == 'No Record found!') {
+          users = [];
+        } else {
+          setState(() {
+            users = items;
+          });
+        }
+      } else {
+        users = [];
+      }
+    } catch (err) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("${err}")));
     }
   }
 
@@ -52,16 +65,25 @@ class _PickupListState extends State<PickupList> {
           ),
         )),
       ),
-      body: getList(),
+      body: users.length > 0
+          ? getList()
+          : Center(
+              child:
+                  Lottie.asset("images/delavery.json", width: 150, height: 150),
+            ),
     );
   }
 
   Widget getList() {
-    return ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          return getCard(users[index]);
-        });
+    if (users.length > 0) {
+      return ListView.builder(
+          itemCount: users.length,
+          itemBuilder: (context, index) {
+            return getCard(users[index]);
+          });
+    } else {
+      return Center(child: const Text('No items'));
+    }
   }
 
   Widget getCard(item) {
@@ -69,7 +91,8 @@ class _PickupListState extends State<PickupList> {
     var drs_date = item['drs_date'];
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, MyRouts.updateDrsRout);
+        Navigator.pushNamed(context, MyRouts.pickupawbupdatedaterout,
+            arguments: {'pickup_id': drs_unique_id});
       },
       child: Card(
         color: Colors.grey.shade100,

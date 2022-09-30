@@ -15,8 +15,9 @@ import 'package:courierv9/pages/pick_and_drop.dart';
 import 'package:courierv9/pages/pick_drop_history.dart';
 import 'package:courierv9/pages/pickup%20history%20pages/pickup_awb_page.dart';
 import 'package:courierv9/pages/pickup%20history%20pages/pickup_detall_history.dart';
-import 'package:courierv9/pages/pickup%20list%20page/pickup_awb_pic.dart';
+import 'package:courierv9/pages/pickup%20list%20page/pickup_awb_list.dart';
 import 'package:courierv9/pages/pickup%20history%20pages/pickup_history.dart';
+import 'package:courierv9/pages/pickup%20list%20page/pickup_detail.dart';
 import 'package:courierv9/pages/pickup%20list%20page/pickup_list.dart';
 import 'package:courierv9/pages/profile.dart';
 import 'package:courierv9/pages/routs.dart';
@@ -70,11 +71,15 @@ class MyApp extends StatelessWidget {
         MyRouts.drsHistoryAwbrout: (context) => DrsAwbHistory(),
         MyRouts.drsDetallHistoryRout: (context) => DrsDetallHistory(),
         MyRouts.homeScreenRout: (context) => HomePage(),
-        MyRouts.pickupawbupdatedaterout: (context) => PickupAwbUpdate(),
-        MyRouts.pickupawbhistoryrout: (context) => PickupAwbHistory(),
+        MyRouts.pickupawbupdatedaterout: (context) => PickupAwbUpdateList(
+            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
+        MyRouts.pickupawbhistoryrout: (context) => PickupAwbHistory(
+            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
         MyRouts.pickupdetallHistoryrout: (context) => PickupDetallHistory(),
         MyRouts.splashScreenrout: (context) => Splash(),
         MyRouts.biomatricrout: (context) => LocalAuth(),
+        MyRouts.pickupDetailRout: (context) => PickupDetail(
+            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>)
       },
     );
   }

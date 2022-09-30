@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_element
 
 import 'package:courierv9/pages/style_constent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-
-import '../components/custom_button.dart';
-import '../components/custom_chackbox.dart';
 
 class PickupAwbUpdate extends StatefulWidget {
   const PickupAwbUpdate({Key? key}) : super(key: key);
@@ -130,16 +127,11 @@ class _PickupAwbUpdateState extends State<PickupAwbUpdate> {
                               endIndent: 15,
                               thickness: 1,
                             ),
-                            CustomCheckBox(),
                           ],
                         )
                       ])),
                   SizedBox(
                     height: 20,
-                  ),
-                  CustomButton(
-                    text: "pickup Conform",
-                    onTap: () => _scan(),
                   ),
                   Text(_data),
                 ],
