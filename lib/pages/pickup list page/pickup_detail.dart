@@ -1,9 +1,10 @@
-// ignore_for_file: sort_child_properties_last, avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: sort_child_properties_last, avoid_print, unnecessary_brace_in_string_interps, unused_field
 
 import 'dart:convert';
 
 import 'package:courierv9/pages/global.dart';
 import 'package:courierv9/pages/style_constent.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../components/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,33 +18,29 @@ class PickupDetail extends StatefulWidget {
 }
 
 class _PickupDetailState extends State<PickupDetail> {
+  bool _hasCallSupport = false;
+  Future<void>? _launched;
+
   var pickupDetailData = {};
   String? pickupRadioBtnVal;
-  // var isLoading = true;
-  // var pickedupStatus = false;
-  // var locationStatus = false;
-  // var coordinates = [];
-  // var coordinatess = {"latitude": 28.0202516, "longitude": 73.2846445};
-  // var RescheduleReasion = false;
-  // var pickupStatus = 'Pickup';
-  // var R_Reasion = '';
-  // var R_date = '';
-  // var m_id = null;
-  // var m_phone = null;
-  // var VerifiedBy = 'None';
-  // var otpVerified = 'Not Match';
-  // var otpnumber = '';
-  // var otpInputEnable = true;
-  // var otpBtnDisabled = false;
-  // var isShipmentSelf = false;
-  // var listType = 'List';
-  // var location = true;
 
   @override
   void initState() {
     super.initState();
-    // print(widget.args);
+    canLaunchUrl(Uri(scheme: "tel", path: "123")).then((bool result) {
+      setState(() {
+        _hasCallSupport = result;
+      });
+    });
     getAppData(widget.args);
+  }
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launchUrl(launchUri);
   }
 
   Future<void> getAppData(arguments) async {
@@ -70,7 +67,6 @@ class _PickupDetailState extends State<PickupDetail> {
           .showSnackBar(SnackBar(content: Text("${err}")));
     }
   }
-
   @override
   Widget build(BuildContext context) {
     // print(pickupDetailData);
@@ -171,9 +167,16 @@ class _PickupDetailState extends State<PickupDetail> {
                                   "Mobile No",
                                   style: TextStyle(fontSize: 15),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 50.0),
-                                  child: Icon(Icons.call),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 50.0),
+                                  child: InkWell(
+                                      onTap: _hasCallSupport
+                                          ? () => setState(() {
+                                                _launched = _makePhoneCall(
+                                                    "${pickupDetailData['sender_phone']}");
+                                              })
+                                          : null,
+                                      child: const Icon(Icons.call)),
                                 ),
                                 Text(
                                   "${pickupDetailData['sender_phone']}",

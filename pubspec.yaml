@@ -43,6 +43,7 @@ dependencies:
   open_file: ^3.2.1
   path_provider: ^2.0.11
   syncfusion_flutter_signaturepad: ^20.2.50
+  url_launcher: ^6.1.6
   velocity_x: ^3.5.1
 dev_dependencies:
   flutter_lints: ^2.0.0

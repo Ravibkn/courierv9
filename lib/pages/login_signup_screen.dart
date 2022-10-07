@@ -17,7 +17,7 @@ class LoginSignUpPage extends StatefulWidget {
 }
 
 class _LoginSignUpPageState extends State<LoginSignUpPage> {
-  late Future<_LoginSignUpPageState> futureAlbum;
+  // late Future<_LoginSignUpPageState> futureAlbum;
 
   final _formkey = GlobalKey<FormState>();
 
@@ -54,7 +54,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
 
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text("Login Successful!")));
-            Navigator.pushNamed(context, MyRouts.homeScreenRout);
+            Navigator.pushNamed(context, MyRouts.bottomBarRout);
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -72,7 +72,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
   TextEditingController passwordController =
       TextEditingController(text: "password");
 
-  @override
+ 
   bool isMale = true;
   bool isSignupScreen = true;
   bool isRememberMe = false;
@@ -525,7 +525,7 @@ class _LoginSignUpPageState extends State<LoginSignUpPage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: TextField(
-        obscureText: isPassword,
+        // obscureText: isPassword,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         decoration: InputDecoration(
             prefixIcon: Icon(

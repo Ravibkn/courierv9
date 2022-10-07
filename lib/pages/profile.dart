@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:courierv9/pages/routs.dart';
 import 'package:courierv9/pages/style_constent.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -11,35 +13,10 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final _myBox = Hive.box('AppData');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   backgroundColor: Colors.cyan,
-      //   title: Center(
-      //       child: Padding(
-      //     padding: const EdgeInsets.only(right: 40.0),
-      //     child: Text(
-      //       "",
-      //       style: TextStyle(
-      //         shadows: <Shadow>[
-      //           Shadow(
-      //             offset: Offset(2.0, 2.0),
-      //             blurRadius: 3.0,
-      //             color: Color.fromARGB(255, 0, 0, 0),
-      //           ),
-      //           Shadow(
-      //             offset: Offset(2.0, 2.0),
-      //             blurRadius: 8.0,
-      //             color: Color.fromARGB(124, 94, 94, 107),
-      //           ),
-      //         ],
-      //         color: Colors.white,
-      //       ),
-      //     ),
-      //   )),
-      // ),
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -100,7 +77,12 @@ class _ProfileState extends State<Profile> {
             padding: EdgeInsets.only(bottom: 260, left: 100),
             child: CircleAvatar(
               backgroundColor: Colors.cyan.shade300.withOpacity(.70),
-              child: IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+              child: IconButton(
+                  onPressed: () {
+                    print("object");
+                    Navigator.pushNamed(context, MyRouts.profileEditRout);
+                  },
+                  icon: Icon(Icons.edit)),
             ),
           ),
           Padding(
@@ -117,7 +99,7 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey.shade100,
                   child: ListTile(
                     leading: Text("Name :", style: mTextStyle1),
-                    title: Text("Ravi Joshi", style: mTextStyle1),
+                    title: Text(_myBox.get("m_name"), style: mTextStyle1),
                   ),
                 ),
                 SizedBox(
@@ -133,7 +115,7 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey.shade100,
                   child: ListTile(
                     leading: Text("Branch :", style: mTextStyle1),
-                    title: Text("BKN-HUB", style: mTextStyle1),
+                    title: Text(_myBox.get("m_branch"), style: mTextStyle1),
                   ),
                 ),
                 SizedBox(
@@ -149,7 +131,7 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey.shade100,
                   child: ListTile(
                     leading: Text("City :", style: mTextStyle1),
-                    title: Text("Bikaner", style: mTextStyle1),
+                    title: Text(_myBox.get("m_city"), style: mTextStyle1),
                   ),
                 ),
                 SizedBox(
@@ -165,7 +147,7 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey.shade100,
                   child: ListTile(
                     leading: Text("Mobile No :", style: mTextStyle1),
-                    title: Text("0123456789", style: mTextStyle1),
+                    title: Text(_myBox.get("m_phone"), style: mTextStyle1),
                   ),
                 ),
                 SizedBox(
@@ -181,7 +163,7 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey.shade100,
                   child: ListTile(
                     leading: Text("Email :", style: mTextStyle1),
-                    title: Text("devox@gmail.com", style: mTextStyle1),
+                    title: Text(_myBox.get("m_email"), style: mTextStyle1),
                   ),
                 ),
                 SizedBox(
@@ -197,7 +179,8 @@ class _ProfileState extends State<Profile> {
                   color: Colors.grey.shade100,
                   child: ListTile(
                     leading: Text("Vehicle No :", style: mTextStyle1),
-                    title: Text("Rjo7CD3455", style: mTextStyle1),
+                    title: Text(_myBox.get("m_vehicle_number"),
+                        style: mTextStyle1),
                   ),
                 ),
                 Container(

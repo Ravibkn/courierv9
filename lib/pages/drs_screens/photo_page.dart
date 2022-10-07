@@ -70,17 +70,7 @@ class _PhotoPageState extends State<PhotoPage> {
         });
   }
 
-  // Widget _desideImageView(BuildContext context) {
-  //   if (imageFile == null) {
-  //     return Text("No Image Selected");
-  //   } else {
-  //     return Image.file(
-  //       imageFile!,
-  //       width: 350,
-  //       height: 250,
-  //     );
-  //   }
-  // }
+  
 
   @override
   Widget build(BuildContext context) {

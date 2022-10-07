@@ -20,6 +20,8 @@ import 'package:courierv9/pages/pickup%20history%20pages/pickup_history.dart';
 import 'package:courierv9/pages/pickup%20list%20page/pickup_detail.dart';
 import 'package:courierv9/pages/pickup%20list%20page/pickup_list.dart';
 import 'package:courierv9/pages/profile.dart';
+import 'package:courierv9/pages/profile_edit.dart';
+// import 'package:courierv9/pages/profileEdit.dart';
 import 'package:courierv9/pages/routs.dart';
 import 'package:courierv9/pages/scan_awb.dart';
 import 'package:courierv9/pages/splash_screen.dart';
@@ -75,11 +77,13 @@ class MyApp extends StatelessWidget {
             ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
         MyRouts.pickupawbhistoryrout: (context) => PickupAwbHistory(
             ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
-        MyRouts.pickupdetallHistoryrout: (context) => PickupDetallHistory(),
+        MyRouts.pickupdetallHistoryrout: (context) => PickupDetallHistory(
+            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
         MyRouts.splashScreenrout: (context) => Splash(),
         MyRouts.biomatricrout: (context) => LocalAuth(),
         MyRouts.pickupDetailRout: (context) => PickupDetail(
-            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>)
+            ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>),
+        MyRouts.profileEditRout: (context) => ProfileEdit(),
       },
     );
   }

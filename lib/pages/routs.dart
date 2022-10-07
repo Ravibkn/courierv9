@@ -25,4 +25,5 @@ class MyRouts {
   static String splashScreenrout = "/splashscreen";
   static String biomatricrout = "/biomatric";
   static String pickupDetailRout = "/pickup_awb_list";
+  static String profileEditRout = "/profileEdit";
 }

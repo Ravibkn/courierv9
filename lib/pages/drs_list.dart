@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, prefer_is_empty, unnecessary_brace_in_string_interps
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names, override_on_non_overriding_member, prefer_is_empty, unnecessary_brace_in_string_interps, avoid_print
 
 import 'dart:convert';
 
@@ -35,7 +35,7 @@ class _DrsListState extends State<DrsList> {
     });
     if (res.statusCode == 200) {
       var items = jsonDecode(res.body)['output'];
-      // print(items);
+      print(items);
       if (items[0]['error'] == 'No Record found!') {
         users = [];
       } else {

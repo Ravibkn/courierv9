@@ -47,6 +47,7 @@ class _NavBarState extends State<NavBar> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan,
+        elevation: 0,
         title: Center(
           child: Padding(
               padding: const EdgeInsets.only(right: 48.0),
